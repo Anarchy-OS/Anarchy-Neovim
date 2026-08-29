@@ -37,3 +37,7 @@ opt.splitbelow = true
 
 -- turn off swapfile
 opt.swapfile = false
+
+-- folds: keep everything open when a window/buffer is first shown
+opt.foldlevel = 99
+opt.foldlevelstart = 99

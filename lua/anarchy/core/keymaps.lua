@@ -48,10 +48,21 @@ map("n", "<leader>wk", function()
 end, { desc = "whichkey query lookup" })
 
 -- TFM
-map("n", "<leader>e", "<cmd>Tfm<CR>", { desc = "tfm open" })
-map("n", "<leader>mh", "<cmd>TfmSplit<CR>", { desc = "tfm horizontal split" })
-map("n", "<leader>mv", "<cmd>TfmVsplit<CR>", { desc = "tfm vertical split" })
-map("n", "<leader>mt", "<cmd>TfmTabedit<CR>", { desc = "tfm new tab" })
+-- Always hand the file manager a real path: the current file when it is a
+-- readable file, otherwise the cwd. Passing a non-file buffer name (e.g. the
+-- mini.starter dashboard's "ministarter://1/welcome") makes newer yazi abort
+-- with "unknown VFS authority".
+local function tfm_open(mode)
+	local file = vim.fn.expand("%:p")
+	local path = vim.fn.filereadable(file) == 1 and file or vim.fn.getcwd()
+	require("tfm").open(path, mode)
+end
+
+map("n", "<leader>e", function() tfm_open() end, { desc = "tfm open" })
+map("n", "<leader>ee", function() tfm_open() end, { desc = "tfm open" })
+map("n", "<leader>mh", function() tfm_open("split") end, { desc = "tfm horizontal split" })
+map("n", "<leader>mv", function() tfm_open("vsplit") end, { desc = "tfm vertical split" })
+map("n", "<leader>mt", function() tfm_open("tabedit") end, { desc = "tfm new tab" })
 
 -- Code Companion
 map("n", "<leader>cc", "<cmd>CodeCompanionChat Toggle<CR>", { desc = "Code Companion Chat Toggle" })

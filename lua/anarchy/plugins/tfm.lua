@@ -30,28 +30,6 @@ return {
 			y = 0.5,
 		},
 	},
-	keys = {
-		-- Make sure to change these keybindings to your preference,
-		-- and remove the ones you won't use
-		{
-			"<leader>ee",
-			":Tfm<CR>",
-			desc = "TFM",
-		},
-		{
-			"<leader>mh",
-			":TfmSplit<CR>",
-			desc = "TFM - horizontal split",
-		},
-		{
-			"<leader>mv",
-			":TfmVsplit<CR>",
-			desc = "TFM - vertical split",
-		},
-		{
-			"<leader>mt",
-			":TfmTabedit<CR>",
-			desc = "TFM - new tab",
-		},
-	},
+	-- keybindings live in lua/anarchy/core/keymaps.lua (they route through a
+	-- helper that always passes a real path to the file manager)
 }
